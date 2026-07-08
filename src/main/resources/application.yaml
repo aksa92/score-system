@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: score-system
+  datasource:
+    url: jdbc:mysql://localhost:3306/score_system?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&createDatabaseIfNotExist=true
+    username: root
+    password: 20041120
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 50MB
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: main.scoresystem.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: isActive
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+
+logging:
+  level:
+    main.scoresystem: debug
+
+app:
+  upload:
+    base-path: ./uploads
+    allowed-extensions: .doc,.docx,.pdf,.txt,.zip,.rar,.jpg,.png
+    max-file-size: 10485760
+  homework:
+    id-prefix: "HW-"
+  jwt:
+    secret: "Y29tcGxldGVseS1yYW5kb20tand0LXNlY3JldC1rZXktZm9yLXNjb3JlLXN5c3RlbS0yMDI0"
+    expiration: 86400000
